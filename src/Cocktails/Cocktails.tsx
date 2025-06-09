@@ -9,22 +9,13 @@ import {
   Spin,
   Divider,
   Button,
-  Tabs,
 } from "antd";
 import { Layout } from "antd";
+import { Cocktail } from "./cocktails.types";
+import { getIngredientsWithMeasures } from "./cocktails.utils";
 
 const { Header, Content } = Layout;
-
 const { Search } = Input;
-
-interface Cocktail {
-  idDrink: string;
-  strDrink: string;
-  strGlass: string;
-  strDrinkThumb: string;
-  strInstructions: string;
-}
-
 const { Title, Paragraph } = Typography;
 
 const Cocktails = () => {
@@ -59,45 +50,6 @@ const Cocktails = () => {
     }
   };
 
-  const getIngredientsWithMeasures = (cocktail: Cocktail): string[] => {
-    const result: string[] = [];
-
-    for (let i = 1; i <= 15; i++) {
-      const ingredient = cocktail[`strIngredient${i}` as keyof Cocktail];
-      const measure = cocktail[`strMeasure${i}` as keyof Cocktail];
-
-      if (ingredient && ingredient.trim()) {
-        result.push(`${measure?.trim() || ""} ${ingredient.trim()}`.trim());
-      }
-    }
-
-    return result;
-  };
-
-  const fetchCocktailByAlcoholic = async () => {
-    try {
-      setLoading(true);
-      const fetchPromises = Array.from({ length: 3 }, () =>
-        fetch(
-          "https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Ordinary_Drink",
-        ).then(async (res) => {
-          if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
-          const data = await res.json();
-          return data.drinks?.[0] as Cocktail;
-        }),
-      );
-
-      const cocktails: Cocktail[] = await Promise.all(fetchPromises);
-
-      console.log("alcholic", cocktails);
-      setCocktails(cocktails);
-      setLoading(false);
-    } catch (error: any) {
-      setLoading(false);
-      console.error("Fetch failed:", error.message);
-    }
-  };
-
   const handleSearch = async (value: string) => {
     const term = value.trim().toLowerCase();
 
@@ -111,18 +63,6 @@ const Cocktails = () => {
     );
     setCocktails(filtered);
   };
-  const tabItems = [
-    {
-      key: "1",
-      label: "Cocktails",
-      children: (
-        <>
-          {/* Your current content: the <Row> with Title, Cards, Button, etc. */}
-        </>
-      ),
-    },
-    // You can add more tabs here later if you want
-  ];
 
   return (
     <div
