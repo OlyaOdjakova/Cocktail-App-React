@@ -1,13 +1,10 @@
 import React from "react";
 import { Header } from "antd/es/layout/layout";
 import Search from "antd/es/input/Search";
-
-interface CocktailsHeaderProps {
-  onHandleSearch: (searchValue: string) => void;
-}
+import { CocktailsHeaderProps } from "../cocktails.types";
 
 const CocktailsHeader = (props: CocktailsHeaderProps) => {
-  const { onHandleSearch } = props;
+  const { selectedIngredients, onHandleSearch, onHandleIngredients } = props;
 
   return (
     <Header
@@ -28,20 +25,42 @@ const CocktailsHeader = (props: CocktailsHeaderProps) => {
           alignItems: "center",
         }}
       >
-        <div style={{ color: "white", fontSize: "20px", cursor: "pointer" }}>
-          Cocktails{" "}
-          <span style={{ marginLeft: "20px", cursor: "pointer" }}>
+        <div
+          style={{
+            color: "white",
+            fontSize: "20px",
+            cursor: "pointer",
+            display: "flex",
+          }}
+        >
+          <div
+            style={{
+              marginLeft: "20px",
+              cursor: "pointer",
+              gap: "2rem",
+            }}
+            onClick={() => onHandleIngredients(false)}
+          >
+            Cocktails
+          </div>
+          <div
+            style={{ marginLeft: "20px", cursor: "pointer" }}
+            onClick={() => onHandleIngredients(true)}
+          >
             Ingredients
-          </span>
+          </div>
         </div>
-        <Search
-          placeholder="Search by name"
-          allowClear
-          enterButton="Search"
-          size="large"
-          onSearch={onHandleSearch}
-          style={{ maxWidth: 400 }}
-        />
+
+        {!selectedIngredients && (
+          <Search
+            placeholder="Search by name"
+            allowClear
+            enterButton="Search"
+            size="large"
+            onSearch={onHandleSearch}
+            style={{ maxWidth: 400 }}
+          />
+        )}
       </div>
     </Header>
   );

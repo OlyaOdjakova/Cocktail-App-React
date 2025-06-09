@@ -14,6 +14,6 @@ export const fetchCocktails = async (): Promise<Cocktail[]> => {
     return await Promise.all(fetchPromises);
   } catch (error: any) {
     console.error("Fetch failed:", error.message);
-    return []; // return empty array to satisfy the return type
+    return [];
   }
 };
