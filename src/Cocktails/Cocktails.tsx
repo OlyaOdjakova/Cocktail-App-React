@@ -3,7 +3,6 @@ import { Card, Typography, List, Col, Row, Spin, Divider, Button } from "antd";
 import { Layout } from "antd";
 import { Cocktail } from "./cocktails.types";
 import { getIngredientsWithMeasures } from "./cocktails.utils";
-import { COCKTAILS_LIST } from "./cocktails.constants";
 import CocktailsHeader from "./CocktailsHeader/CocktailsHeader";
 import { fetchCocktails } from "./cocktails.api";
 import Ingredients from "./Ingredients/Ingredients";
@@ -22,7 +21,6 @@ const Cocktails = () => {
 
   const handleSearch = async (searchValue: string) => {
     const searchTerm = searchValue.trim().toLowerCase();
-
     if (!searchTerm) {
       fetchRandomCocktails();
       return;
@@ -36,16 +34,10 @@ const Cocktails = () => {
   const fetchRandomCocktails = async () => {
     try {
       setLoading(true);
-      const fetchCocktails = Array.from({ length: 3 }, () =>
-        fetch(COCKTAILS_LIST).then(async (res) => {
-          if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
-          const data = await res.json();
-          return data.drinks?.[0] as Cocktail;
-        }),
-      );
-
-      const cocktails: Cocktail[] = await Promise.all(fetchCocktails);
-      setCocktails(cocktails);
+      const cocktails = await fetchCocktails();
+      if (cocktails.length !== 0) {
+        setCocktails(cocktails);
+      }
       setLoading(false);
     } catch (error: any) {
       setLoading(false);
