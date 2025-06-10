@@ -21,10 +21,6 @@ const Cocktails = () => {
 
   const handleSearch = async (searchValue: string) => {
     const searchTerm = searchValue.trim().toLowerCase();
-    if (!searchTerm) {
-      fetchRandomCocktails();
-      return;
-    }
     const filtered = cocktails.filter((cocktail) =>
       cocktail.strDrink.toLowerCase().includes(searchTerm),
     );

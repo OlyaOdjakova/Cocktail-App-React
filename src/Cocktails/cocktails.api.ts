@@ -3,7 +3,7 @@ import { COCKTAILS_LIST } from "./cocktails.constants";
 
 export const fetchCocktails = async () => {
   try {
-    const fetchPromises = Array.from({ length: 9 }, () =>
+    const fetchPromises = Array.from({ length: 10 }, () =>
       fetch(COCKTAILS_LIST).then(async (res) => {
         if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
         const data = await res.json();

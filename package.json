@@ -22,7 +22,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "test:e2e": "start-server-and-test dev http://localhost:5174 'playwright test'"
   },
   "eslintConfig": {
     "extends": [
@@ -43,6 +44,8 @@
     ]
   },
   "devDependencies": {
-    "prettier": "^3.5.3"
+    "@playwright/test": "^1.53.0",
+    "prettier": "^3.5.3",
+    "start-server-and-test": "^2.0.12"
   }
 }
