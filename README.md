@@ -1,6 +1,6 @@
 # Cocktail App
 
-A web application that displays a list of randomly fetched cocktails using data from [TheCocktailDB API](https://www.thecocktaildb.com/api.php).
+A responsive web application that displays a list of randomly fetched cocktails using data from [TheCocktailDB API](https://www.thecocktaildb.com/api.php).
 
 **Tech Stack:**  
 - TypeScript  
