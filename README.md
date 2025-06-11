@@ -1,9 +1,13 @@
-#Cocktail App
+# Cocktail App
 
-A web application that shows a list of randomly fetched cocktails using the api documentation from: https://www.thecocktaildb.com/api.php
+A web application that displays a list of randomly fetched cocktails using data from [TheCocktailDB API](https://www.thecocktaildb.com/api.php).
 
-Built with: TypeScript, React.js, Ant-design and Playwright
+**Tech Stack:**  
+- TypeScript  
+- React.js  
+- Ant Design  
+- Playwright (for end-to-end testing)
 
-It has been deployed using Vercel on the following domain: cocktail-app-react-phi.vercel.app
-
+**Live Demo:**  
+Deployed on Vercel: [cocktail-app-react-phi.vercel.app](https://cocktail-app-react-phi.vercel.app)
 
