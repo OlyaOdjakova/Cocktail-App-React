@@ -1,11 +1,9 @@
-import React from 'react';
-import './App.css';
+import React from "react";
+import "./App.css";
 import Cocktails from "./Cocktails/Cocktails";
 
 function App() {
-  return (
-    <Cocktails/>
-  );
+  return <Cocktails />;
 }
 
 export default App;

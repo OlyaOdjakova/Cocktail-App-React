@@ -13,7 +13,7 @@ const { Title, Paragraph } = Typography;
 const Cocktails = () => {
   const [cocktails, setCocktails] = useState<Cocktail[]>([]);
   const [loading, setLoading] = useState(false);
-  const [selectedIngredients, setSelectedIngredients] = useState(false);
+  const [isSelectedIngredients, setSelectedIngredients] = useState(false);
 
   const onHandleIngredients = (ingredientsValue: boolean) => {
     setSelectedIngredients(ingredientsValue);
@@ -58,7 +58,7 @@ const Cocktails = () => {
       }}
     >
       <CocktailsHeader
-        selectedIngredients={selectedIngredients}
+        isSelectedIngredients={isSelectedIngredients}
         onHandleSearch={handleSearch}
         onHandleIngredients={onHandleIngredients}
       />
@@ -71,7 +71,7 @@ const Cocktails = () => {
           backgroundColor: "#001529",
         }}
       >
-        {!selectedIngredients && (
+        {!isSelectedIngredients && (
           <Row
             justify="center"
             style={{
@@ -90,7 +90,7 @@ const Cocktails = () => {
                   color: "white",
                 }}
               >
-                LIST OF COCKTAILS
+                COCKTAIL RECIPES
               </Title>
               <Divider
                 style={{
@@ -104,10 +104,12 @@ const Cocktails = () => {
           </Row>
         )}
 
-        {selectedIngredients && <Ingredients />}
+        {isSelectedIngredients && (
+          <Ingredients isSelectedIngredients={isSelectedIngredients} />
+        )}
 
-        {!selectedIngredients && (
-          <Row gutter={[16, 16]} justify="center" style={{ gap: "3rem" }}>
+        {!isSelectedIngredients && (
+          <Row gutter={[16, 16]} justify="center" style={{ gap: "2rem" }}>
             {loading ? (
               <Spin
                 size="large"
@@ -125,9 +127,9 @@ const Cocktails = () => {
                 No cocktails found.
               </div>
             ) : (
-              !selectedIngredients &&
+              !isSelectedIngredients &&
               cocktails.map((cocktail) => (
-                <Col key={cocktail.idDrink} xs={24} sm={12} md={8} lg={6}>
+                <Col key={cocktail.idDrink} xs={22} sm={12} md={8} lg={5}>
                   <Card
                     loading={loading}
                     cover={
@@ -150,7 +152,6 @@ const Cocktails = () => {
                       header={<strong>Measures:</strong>}
                       dataSource={getIngredientsWithMeasures(cocktail)}
                       renderItem={(item) => <List.Item>{item}</List.Item>}
-                      style={{ marginBottom: 12 }}
                     />
                     <Paragraph style={{ fontSize: "0.9rem" }}>
                       <strong>How to make:</strong> {cocktail.strInstructions}
@@ -166,7 +167,7 @@ const Cocktails = () => {
           </Row>
         )}
 
-        {!selectedIngredients && (
+        {!isSelectedIngredients && (
           <Row
             justify="center"
             style={{

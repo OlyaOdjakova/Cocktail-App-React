@@ -6,8 +6,18 @@ export interface Cocktail {
   strInstructions: string;
 }
 
+export interface Ingredient {
+  idDrink: string;
+  strDrink: string;
+  strDrinkThumb: string;
+}
+
 export interface CocktailsHeaderProps {
-  selectedIngredients: boolean;
+  isSelectedIngredients: boolean;
   onHandleSearch: (searchValue: string) => void;
   onHandleIngredients: (selectedIngredients: boolean) => void;
+}
+
+export interface IngredientProps {
+  isSelectedIngredients: boolean;
 }

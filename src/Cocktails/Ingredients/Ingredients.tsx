@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Card, Col, Row, Typography } from "antd";
+import { Card, Col, Divider, Row, Typography } from "antd";
+import { INGREDIENTS } from "../cocktails.constants";
+import { Ingredient, IngredientProps } from "../cocktails.types";
 
-interface Ingredient {
-  idDrink: string;
-  strDrink: string;
-  strDrinkThumb: string;
-}
-
-const Ingredients = () => {
+const Ingredients = (props: IngredientProps) => {
+  const { isSelectedIngredients } = props;
   const [ingredients, setIngredients] = useState<Ingredient[]>();
   const [loading, setLoading] = useState(false);
 
@@ -18,9 +15,7 @@ const Ingredients = () => {
       setLoading(true);
       const fetchIngredients = async () => {
         try {
-          const res = await fetch(
-            `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=Gin`,
-          );
+          const res = await fetch(INGREDIENTS);
           if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
           const data = await res.json();
           return data?.drinks;
@@ -42,9 +37,7 @@ const Ingredients = () => {
   useEffect(() => {
     const getIngredients = async () => {
       try {
-        const ingredients = await fetchRandomIngredients(
-          `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=Gin`,
-        );
+        const ingredients = await fetchRandomIngredients(INGREDIENTS);
         setIngredients(ingredients);
       } catch (error) {
         console.error("Failed to fetch ingredients:", error);
@@ -57,14 +50,45 @@ const Ingredients = () => {
 
   return (
     <div>
-      <div style={{ color: "white" }}>Gin</div>
+      {isSelectedIngredients && (
+        <Row
+          justify="center"
+          style={{
+            padding: "40px 0 0 0",
+            textAlign: "center",
+          }}
+        >
+          <div>
+            <Title
+              level={2}
+              style={{
+                letterSpacing: "5px",
+                marginTop: "5rem",
+                marginBottom: "8px",
+                color: "white",
+              }}
+            >
+              COCKTAIL INGREDIENTS
+            </Title>
+            <Divider
+              style={{
+                backgroundColor: "#e6007e",
+                height: "4px",
+                margin: "0 auto",
+                width: "20px",
+              }}
+            />
+          </div>
+        </Row>
+      )}
+
       <Row
         gutter={[24, 24]}
-        style={{ marginTop: "10rem", overflowX: "hidden" }}
+        style={{ marginTop: "5rem", overflowX: "hidden", gap: "2rem" }}
         justify="center"
       >
-        {ingredients?.slice(0, 15).map((ingredient) => (
-          <Col key={ingredient.idDrink} xs={12} sm={6} md={4} lg={3}>
+        {ingredients?.slice(0, 7).map((ingredient) => (
+          <Col key={ingredient.idDrink} xs={12} sm={6} md={4} lg={5}>
             <Card
               loading={loading}
               cover={

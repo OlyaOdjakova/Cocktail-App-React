@@ -1,21 +1,20 @@
+import { Button, Input, Layout } from "antd";
 import React from "react";
-import { Header } from "antd/es/layout/layout";
-import Search from "antd/es/input/Search";
 import { CocktailsHeaderProps } from "../cocktails.types";
 
 const CocktailsHeader = (props: CocktailsHeaderProps) => {
-  const { selectedIngredients, onHandleSearch, onHandleIngredients } = props;
+  const { isSelectedIngredients, onHandleSearch, onHandleIngredients } = props;
 
   return (
-    <Header
+    <Layout.Header
       style={{
-        background: "",
-        padding: "0 24px",
+        padding: "20px 20px 0 20px",
         position: "fixed",
         top: 0,
         left: 0,
         right: 0,
         zIndex: 1000,
+        backgroundColor: "#001529",
       }}
     >
       <div
@@ -33,36 +32,49 @@ const CocktailsHeader = (props: CocktailsHeaderProps) => {
             display: "flex",
           }}
         >
-          <div
+          <Button
             style={{
-              marginLeft: "20px",
-              cursor: "pointer",
-              gap: "2rem",
+              fontSize: "22px",
+              background: "transparent",
+              border: "none",
+              color: "white",
+              paddingBottom: "1rem",
+              borderBottom: !isSelectedIngredients
+                ? "2px solid #e6007e"
+                : "none",
             }}
             onClick={() => onHandleIngredients(false)}
           >
             Cocktails
-          </div>
-          <div
-            style={{ marginLeft: "20px", cursor: "pointer" }}
+          </Button>
+          <Button
+            style={{
+              fontSize: "22px",
+              background: "transparent",
+              border: "none",
+              color: "white",
+              paddingBottom: "1rem",
+              borderBottom: isSelectedIngredients
+                ? "2px solid #e6007e"
+                : "none",
+            }}
             onClick={() => onHandleIngredients(true)}
           >
             Ingredients
-          </div>
+          </Button>
         </div>
 
-        {!selectedIngredients && (
-          <Search
+        {!isSelectedIngredients && (
+          <Input.Search
             placeholder="Search by name"
             allowClear
-            enterButton="Search"
             size="large"
             onSearch={onHandleSearch}
-            style={{ maxWidth: 400 }}
+            style={{ maxWidth: 260 }}
           />
         )}
       </div>
-    </Header>
+    </Layout.Header>
   );
 };
 export default CocktailsHeader;
