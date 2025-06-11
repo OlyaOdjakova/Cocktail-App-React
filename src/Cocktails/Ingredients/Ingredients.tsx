@@ -88,7 +88,7 @@ const Ingredients = (props: IngredientProps) => {
         justify="center"
       >
         {ingredients?.slice(0, 7).map((ingredient) => (
-          <Col key={ingredient.idDrink} xs={12} sm={6} md={4} lg={5}>
+          <Col key={ingredient.idDrink} xs={22} sm={12} md={8} lg={5}>
             <Card
               loading={loading}
               cover={
