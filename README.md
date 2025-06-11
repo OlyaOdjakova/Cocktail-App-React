@@ -4,4 +4,6 @@ A web application that shows a list of randomly fetched cocktails using the api 
 
 Built with: TypeScript, React.js, Ant-design and Playwright
 
+It has been deployed using Vercel on the following domain: cocktail-app-react-phi.vercel.app
+
 
